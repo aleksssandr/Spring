@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+</head>
+<body>
+<h2>User List</h2>
+<table border="1">
+
+    <tr>
+
+        <th>ID</th><th>Name</th><th>Age</th><th>Actions</th>
+
+    </tr>
+
+    <tr th:each="u : ${users}">
+
+        <td th:text="${u.id}"></td>
+
+        <td th:text="${u.name}"></td>
+
+        <td th:text="${u.age}"></td>
+
+        <td>
+
+            <a th:href="@{'/users/edit/' + ${u.id}}">Edit</a>
+
+            <a th:href="@{'/users/delete/' + ${u.id}}">Delete</a>
+
+        </td>
+
+    </tr>
+
+</table>
+
+<h3 th:text="${user.id == null} ? 'Add New User' : 'Edit User'"></h3>
+
+<form th:action="@{${user.id == null} ? '/users/add' : '/users/update'}" method="post">
+
+    <input type="hidden" name="id" th:value="${user.id}" />
+
+    Name: <input type="text" name="name" th:value="${user.name}" />
+
+    LastName: <input type="text" name="lastName" th:value="${user.lastName}" />
+
+    Age: <input type="number" name="age" th:value="${user.age}" />
+
+    <input type="submit" value="Submit" />
+
+</form>
+<div>
+    <th:block th:each="msg : ${messages}">
+        <h1 th:text="${msg}"></h1>
+    </th:block>
+</div>
+</body>
+</html>
