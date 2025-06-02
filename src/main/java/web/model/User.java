@@ -1,6 +1,8 @@
 package web.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 
 @Table(name = "users")
 @Entity
@@ -10,12 +12,15 @@ public class User {
     private Long id;
 
     @Column
+    @NotBlank(message = "Имя - обязательное поле")
     private String name;
 
     @Column
+    @NotBlank(message = "Фамилия -обязательное поле")
     private String lastName;
 
     @Column
+    @Min(value=18,message = "Пользователь должен быть совершеннолетним")
     private Byte age;
 
     public User() {
