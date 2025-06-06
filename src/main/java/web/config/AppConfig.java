@@ -1,7 +1,6 @@
 package web.config;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -10,8 +9,6 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
@@ -20,10 +17,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Configuration
-@EnableWebMvc
-@ComponentScan("web")
 @EnableTransactionManagement(proxyTargetClass = true)
-public class AppConfig implements WebMvcConfigurer {
+public class AppConfig {
     private static final Logger logger = Logger.getLogger(WebConfig.class.getName());
     private static final Properties properties = new Properties();
 
@@ -45,7 +40,7 @@ public class AppConfig implements WebMvcConfigurer {
         em.setJpaVendorAdapter(vendorAdapter);
         Properties jpaProperties = new Properties();
         jpaProperties.setProperty("hibernate.hbm2ddl.auto", "update");
-        jpaProperties.setProperty("hibernate.dialect",properties.getProperty("db.dialect") );
+        jpaProperties.setProperty("hibernate.dialect", properties.getProperty("db.dialect"));
         jpaProperties.setProperty("hibernate.show_sql", "true");
         em.setJpaProperties(jpaProperties);
         return em;
